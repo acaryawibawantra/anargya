@@ -5,30 +5,59 @@ import Navbar from '@/components/navbar'
 import NOSCursorEffect from '@/components/NOSCursorEffect'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useEffect, useState } from 'react'
+
+function AnimatedStat({ value, label }: { value: number; label: string }) {
+  const [display, setDisplay] = useState(0)
+
+  useEffect(() => {
+    let start: number | null = null
+    let raf = 0
+    const duration = 1200 // ms
+
+    const step = (ts: number) => {
+      if (start === null) start = ts
+      const progress = (ts - start) / duration
+      const next = Math.min(Math.floor(progress * value), value)
+      setDisplay(next)
+      if (progress < 1) raf = requestAnimationFrame(step)
+    }
+
+    raf = requestAnimationFrame(step)
+    return () => cancelAnimationFrame(raf)
+  }, [value])
+
+  return (
+    <div className="text-center">
+      <h3 className="text-4xl font-bold text-primary glow-text">{display}+</h3>
+      <p className="text-gray-500 text-sm">{label}</p>
+    </div>
+  )
+}
 
 export default function Home() {
 
   const cars = [
     {
-      name: 'ANARGYA EV-01',
+      name: 'FSJ2019 EV Formula',
       type: 'Formula Electric',
-      power: '80kW',
+      power: '25kW',
       speed: '140 km/h',
-      image: 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=800&h=600&fit=crop'
+      image: '/images/img2.jpg'
     },
     {
-      name: 'THUNDER X',
-      type: 'Racing Prototype',
-      power: '95kW',
+      name: 'MARK 2.0',
+      type: 'Formula Electric',
+      power: '35kW',
       speed: '165 km/h',
-      image: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=800&h=600&fit=crop'
+      image: '/images/mark20.png'
     },
     {
-      name: 'VELOCITY PRO',
-      type: 'Performance EV',
-      power: '120kW',
+      name: 'MARK 3.0',
+      type: 'Formula Electric',
+      power: '40kW',
       speed: '180 km/h',
-      image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&h=600&fit=crop'
+      image: '/images/mark30.png'
     }
   ]
 
@@ -47,7 +76,7 @@ export default function Home() {
             loop
             playsInline
             preload="metadata"
-            poster="/images/img1.png"
+            poster="/images/team.jpg"
           >
             <source src="/images/vidio.mp4" type="video/mp4" />
           </video>
@@ -62,46 +91,37 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-8">
+            <h1 className="text-6xl sm:text-7xl lg:text-7xl font-extrabold tracking-tight mb-8">
               <span className="text-white">ALWAYS</span>{' '}
-              <span className="text-primary">ENERGIZED</span>
+              <span className="text-primary glow-text">ENERGIZED</span>
             </h1>
 
-            <p className="text-gray-300 text-lg sm:text-xl mb-10">
+            <p className="text-gray-300 text-sm sm:text-xl mb-10">
               Experience the future of automotive excellence with cutting-edge electric vehicles
               designed for performance, innovation, and sustainability.
             </p>
 
             {/* CTA pills */}
-            <div className="flex items-center justify-center gap-6 mb-14">
+            <div className="flex flex-row flex-wrap items-center justify-center gap-3 sm:gap-6 mb-10">
               <a
                 href="#showcase"
-                className="bg-primary text-dark font-semibold px-10 py-4 rounded-full transition-all hover:scale-105"
+                className="bg-primary text-dark font-semibold px-6 py-3 text-sm sm:px-10 sm:py-4 sm:text-base rounded-full transition-all hover:scale-105"
               >
                 Explore Showcase
               </a>
               <Link
                 href="/products"
-                className="bg-primary text-dark font-semibold px-10 py-4 rounded-full transition-all hover:scale-105"
+                className="bg-primary text-dark font-semibold px-6 py-3 text-sm sm:px-10 sm:py-4 sm:text-base rounded-full transition-all hover:scale-105"
               >
                 View Products
               </Link>
             </div>
 
             {/* Stats row */}
-            <div className="grid grid-cols-3 gap-8">
-              <div>
-                <h3 className="text-4xl font-bold text-primary">15+</h3>
-                <p className="text-gray-500 text-sm">Awards Won</p>
-              </div>
-              <div>
-                <h3 className="text-4xl font-bold text-primary">15+</h3>
-                <p className="text-gray-500 text-sm">Awards Won</p>
-              </div>
-              <div>
-                <h3 className="text-4xl font-bold text-primary">15+</h3>
-                <p className="text-gray-500 text-sm">Awards Won</p>
-              </div>
+            <div className="grid grid-cols-3 gap-8 pt-20 justify-center">
+              <AnimatedStat value={15} label="Awards Won" />
+              <AnimatedStat value={15} label="Awards Won" />
+              <AnimatedStat value={15} label="Awards Won" />
             </div>
           </motion.div>
         </div>

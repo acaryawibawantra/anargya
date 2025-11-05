@@ -37,9 +37,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2 group">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-primary rounded-full flex items-center justify-center group-hover:animate-glow transition-all">
-              <span className="text-dark font-bold text-lg sm:text-xl">A</span>
-            </div>
+            
             <span className="text-lg sm:text-xl font-bold glow-text hidden sm:inline">ANARGYA</span>
           </Link>
 
