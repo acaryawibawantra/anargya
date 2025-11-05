@@ -113,24 +113,24 @@ export default function NOSCursorEffect() {
     // Animation loop
     let animationFrame: number
     const animate = () => {
-      // Clear with fade effect
-      ctx.fillStyle = 'rgba(10, 10, 10, 0.15)'
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
+      // Bersihkan canvas total agar tidak meninggalkan bekas warna
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-      // Update and draw particles
+      // Additive blend untuk glow yang halus tanpa mengubah latar
+      ctx.globalCompositeOperation = 'lighter'
+
+      // Update dan gambar partikel
       for (let i = particles.length - 1; i >= 0; i--) {
         particles[i].update()
         particles[i].draw()
-        
         if (particles[i].isDead()) {
           particles.splice(i, 1)
         }
       }
 
-      // Draw cursor glow
+      // Cursor glow
       if (mouseX > 0 && mouseY > 0) {
         ctx.save()
-        
         const gradient = ctx.createRadialGradient(
           mouseX, mouseY, 0,
           mouseX, mouseY, 40
@@ -138,14 +138,15 @@ export default function NOSCursorEffect() {
         gradient.addColorStop(0, 'rgba(0, 255, 136, 0.4)')
         gradient.addColorStop(0.5, 'rgba(0, 255, 136, 0.2)')
         gradient.addColorStop(1, 'rgba(0, 255, 136, 0)')
-        
         ctx.fillStyle = gradient
         ctx.beginPath()
         ctx.arc(mouseX, mouseY, 40, 0, Math.PI * 2)
         ctx.fill()
-        
         ctx.restore()
       }
+
+      // Reset blend untuk frame berikutnya
+      ctx.globalCompositeOperation = 'source-over'
 
       animationFrame = requestAnimationFrame(animate)
     }
@@ -162,7 +163,7 @@ export default function NOSCursorEffect() {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-[15] mix-blend-screen"
+      className="fixed inset-0 pointer-events-none z-[15]"
       style={{ opacity: 0.9 }}
     />
   )

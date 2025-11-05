@@ -193,11 +193,22 @@ export default function ProductsPage() {
                 className="bg-dark border border-dark-lighter text-white rounded-lg px-4 py-3"
               >
                 <option value="all">All Categories</option>
-                {categories.map((c) => (
-                  <option key={c.slug} value={c.slug}>
-                    {c.name}
-                  </option>
-                ))}
+                {(categories as any[]).map((cat) => {
+                  const value =
+                    typeof cat === 'string'
+                      ? cat
+                      : cat?.slug || cat?.value || ''
+                  const base =
+                    typeof cat === 'string'
+                      ? cat
+                      : cat?.name || cat?.slug || ''
+                  const label = base ? formatLabel(base) : 'Unknown'
+                  return (
+                    <option key={value || base} value={value}>
+                      {label}
+                    </option>
+                  )
+                })}
               </select>
 
               {/* Sort Filter */}
@@ -480,3 +491,9 @@ export default function ProductsPage() {
     </main>
   )
 }
+
+const formatLabel = (str: string) =>
+  str
+    .split('-')
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ')
