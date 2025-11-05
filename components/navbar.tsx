@@ -37,7 +37,11 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2 group">
-            
+            <img
+              src="/images/Anargya Blacks.png"
+              alt="ANARGYA"
+              className="w-16 h-16 sm:w-10 sm:h-8 rounded-full filter drop-shadow-[0_0_8px_#22c55e] drop-shadow-[0_0_16px_#22c55e]"
+            />
             <span className="text-lg sm:text-xl font-bold glow-text hidden sm:inline">ANARGYA</span>
           </Link>
 

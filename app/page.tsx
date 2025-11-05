@@ -119,9 +119,9 @@ export default function Home() {
 
             {/* Stats row */}
             <div className="grid grid-cols-3 gap-8 pt-20 justify-center">
-              <AnimatedStat value={15} label="Awards Won" />
-              <AnimatedStat value={15} label="Awards Won" />
-              <AnimatedStat value={15} label="Awards Won" />
+              <AnimatedStat value={10} label="Total Cars" />
+              <AnimatedStat value={15} label="Total Awards" />
+              <AnimatedStat value={7} label="Year Founded" />
             </div>
           </motion.div>
         </div>
