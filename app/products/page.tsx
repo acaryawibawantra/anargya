@@ -132,6 +132,7 @@ export default function ProductsPage() {
   return (
     <main className="min-h-screen bg-dark">
       <Navbar />
+      <NOSCursorEffect />
       
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8">

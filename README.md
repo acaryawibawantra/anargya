@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Anargya Car Showcase
 
-## Getting Started
+Situs web showcase mobil listrik dengan tampilan modern, animasi halus, efek glow hijau, dan halaman produk interaktif. Dibangun dengan Next.js (App Router), Tailwind CSS, dan Framer Motion.
 
-First, run the development server:
+## Fitur Utama
+- Hero dengan teks glow “Always Energized” dan CTA responsif.
+- Navigasi cepat: link “Showcase” di navbar menuju `/#showcase` dari halaman mana pun.
+- Efek NOS Cursor (glow hijau mengikuti kursor) di seluruh halaman.
+- Statistik dengan efek count-up (0 → target), animasi masuk, dan hover glow.
+- Car Showcase dengan kartu animasi dan modal “View Details” (frontend-only, tanpa backend).
+- Halaman Products:
+  - Pencarian, filter kategori, sorting, pagination.
+  - Penanganan aman tipe kategori (string/objek).
+  - Kartu produk dengan border gradient, badge diskon/kategori, glow saat hover.
+  - Spinner loading dengan glow.
+  - CTA akhir untuk kembali ke Home atau Explore Showcase.
+
+## Teknologi
+- Next.js 14 (App Router)
+- Tailwind CSS
+- Framer Motion
+- TypeScript
+
+## Prasyarat
+- Node.js `>= 18`
+- npm atau pnpm
+
+## Menjalankan Secara Lokal
+Install dependencies:
+
+```bash
+npm install
+```
+
+Jalankan development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Buka `http://localhost:3000/`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Build produksi:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+```
 
-## Learn More
+Jalankan hasil build:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Linting (opsional):
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npx next lint
+```
 
-## Deploy on Vercel
+## Struktur Proyek (ringkas)
+- `app/page.tsx` — Halaman Home: hero, stats, showcase, modal “View Details”, about, footer.
+- `app/products/page.tsx` — Halaman Products: search/filter/sort/pagination, grid produk, CTA.
+- `components/navbar.tsx` — Navbar dengan link `/#showcase`, `/#about`, glow logo.
+- `components/NOSCursorEffect.tsx` — Efek NOS kursor (canvas overlay).
+- `app/globals.css` — Style global termasuk utilitas `glow-text`.
+- `public/images/` — Gambar dan aset.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Cara Kustomisasi
+- Mengubah data mobil:
+  - Edit array `cars` di `app/page.tsx` (name, type, power, topSpeed, image).
+- Mengubah warna glow:
+  - Ubah kelas Tailwind `drop-shadow-[...]` atau `text-primary` di komponen terkait.
+- Mematikan efek NOS:
+  - Hapus `<NOSCursorEffect />` dari halaman yang tidak diinginkan.
+- Menambah statistik:
+  - Gunakan komponen `AnimatedStat` di `app/page.tsx` dengan `value` dan `label`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Perilaku Navigasi
+- Navbar “Showcase” menggunakan `Link href="/#showcase"`, sehingga:
+  - Saat di `/products`, klik “Showcase” langsung pindah ke Home dan scroll ke section Showcase.
+
+
+## Catatan
+- Modal “View Details” di Home sepenuhnya frontend-only (tanpa fetch/API).
+- Halaman Products telah diperbarui agar menangani kategori bertipe `string[]` atau objek secara aman.
+- Efek glow menggunakan Tailwind `filter drop-shadow-[...]` dan utilitas `glow-text`.
+
+

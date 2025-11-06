@@ -4,7 +4,6 @@ import { motion } from 'framer-motion'
 import Navbar from '@/components/navbar'
 import NOSCursorEffect from '@/components/NOSCursorEffect'
 import Link from 'next/link'
-import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
 function AnimatedStat({ value, label }: { value: number; label: string }) {
@@ -61,8 +60,9 @@ export default function Home() {
     }
   ]
 
+  const [selectedCar, setSelectedCar] = useState<(typeof cars)[number] | null>(null)
   return (
-    <main className="min-h-screen bg-dark overflow-hidden">
+    <main className="min-h-screen bg-dark">
       <Navbar />
       <NOSCursorEffect />
       {/* Hero Section */}
@@ -194,7 +194,10 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <button className="w-full mt-6 bg-primary/10 hover:bg-primary text-primary hover:text-dark font-semibold py-3 rounded-lg transition-all">
+                  <button
+                    onClick={() => setSelectedCar(car)}
+                    className="w-full mt-6 bg-primary/10 hover:bg-primary text-primary hover:text-dark font-semibold py-3 rounded-lg transition-all"
+                  >
                     View Details
                   </button>
                 </div>
@@ -204,6 +207,70 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Frontend-only modal (no backend) */}
+      {selectedCar && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4"
+          onClick={() => setSelectedCar(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Car details"
+        >
+          <motion.div
+            initial={{ scale: 0.95, opacity: 0, y: 10 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            transition={{ duration: 0.2 }}
+            className="w-full max-w-2xl rounded-2xl overflow-hidden bg-dark-light shadow-xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="p-[1px] bg-gradient-to-r from-primary/50 via-emerald-400/40 to-transparent">
+              <div className="bg-dark-light p-4 flex items-center justify-between">
+                <h3 className="text-xl font-bold text-white">{selectedCar.name}</h3>
+                <button
+                  onClick={() => setSelectedCar(null)}
+                  aria-label="Close"
+                  className="text-gray-400 hover:text-white rounded-lg px-2 py-1 transition-colors"
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+
+            <div className="p-6 grid md:grid-cols-2 gap-6">
+              <img
+                src={selectedCar.image ?? '/images/img1.png'}
+                alt={selectedCar.name}
+                className="w-full h-48 md:h-56 object-cover rounded-lg filter drop-shadow-[0_0_12px_#22c55e30]"
+              />
+              <div className="space-y-3">
+                <div className="flex flex-wrap gap-4">
+                  <div>
+                    <p className="text-xs text-gray-400">Type</p>
+                    <p className="text-lg text-white">{selectedCar.type}</p>
+                  </div>
+                  {selectedCar.power && (
+                    <div>
+                      <p className="text-xs text-gray-400">Power</p>
+                      <p className="text-lg text-white">{selectedCar.power}</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="px-6 pb-6 flex items-center justify-end gap-3">
+              <button
+                onClick={() => setSelectedCar(null)}
+                className="bg-dark-lighter text-gray-300 px-4 py-2 rounded-lg hover:bg-dark transition-colors"
+              >
+                Close
+              </button>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
       {/* About Section */}
       <section id="about" className="relative py-20 px-4 sm:px-6 lg:px-8 bg-dark-light">
         <div className="container mx-auto">
