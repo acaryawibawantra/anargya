@@ -38,7 +38,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2 group">
             <img
-              src="/images/Anargya Blacks.png"
+              src="/images/logonew.png"
               alt="ANARGYA"
               className="w-16 h-16 sm:w-10 sm:h-8 rounded-full filter drop-shadow-[0_0_8px_#22c55e] drop-shadow-[0_0_16px_#22c55e]"
             />
@@ -53,12 +53,12 @@ export default function Navbar() {
             <Link href="/products" className="text-white hover:text-primary transition-colors">
               Products
             </Link>
-            <a href="#showcase" className="text-white hover:text-primary transition-colors">
+            <Link href="/#showcase" className="text-white hover:text-primary transition-colors">
               Showcase
-            </a>
-            <a href="#about" className="text-white hover:text-primary transition-colors">
+            </Link>
+            <Link href="/#about" className="text-white hover:text-primary transition-colors">
               About
-            </a>
+            </Link>
             <button className="bg-primary hover:bg-primary-dark text-dark font-semibold px-6 py-2 rounded-full transition-all hover:scale-105">
               Contact
             </button>
@@ -108,12 +108,12 @@ export default function Navbar() {
                 <Link href="/products" className="text-white text-2xl hover:text-primary transition-colors">
                   Products
                 </Link>
-                <a href="#showcase" className="text-white text-2xl hover:text-primary transition-colors">
+                <Link href="/#showcase" className="text-white text-2xl hover:text-primary transition-colors">
                   Showcase
-                </a>
-                <a href="#about" className="text-white text-2xl hover:text-primary transition-colors">
+                </Link>
+                <Link href="/#about" className="text-white text-2xl hover:text-primary transition-colors">
                   About
-                </a>
+                </Link>
                 <button className="bg-primary hover:bg-primary-dark text-dark font-semibold px-6 py-3 rounded-full transition-all w-full">
                   Contact
                 </button>

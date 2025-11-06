@@ -76,7 +76,7 @@ export default function Home() {
             loop
             playsInline
             preload="metadata"
-            poster="/images/team.jpg"
+            
           >
             <source src="/images/vidio.mp4" type="video/mp4" />
           </video>
@@ -153,7 +153,7 @@ export default function Home() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-              <span className="text-gradient">OUR FLEET</span>
+              <span className="text-gradient">OUR CARS</span>
             </h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
               Discover our lineup of high-performance electric vehicles engineered for speed and sustainability
@@ -230,7 +230,7 @@ export default function Home() {
                 <div className="bg-dark px-6 py-3 rounded-full border border-primary/30">
                   <span className="text-primary font-semibold">#FormulaStudent</span>
                 </div>
-                <div className="bg-dark px-6 py-3 rounded-full border border-primary/30">
+                <div className="bg-dark px-6 py-3 rounded-full border border-primary/30 hidden md:block">
                   <span className="text-primary font-semibold">#ElectricVehicle</span>
                 </div>
               </div>
